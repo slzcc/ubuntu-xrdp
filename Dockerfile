@@ -82,6 +82,18 @@ ADD bin /usr/bin
 ADD etc /etc
 ADD autostart /etc/xdg/autostart
 
+## Install some common tools 
+RUN apt-get update  && \
+    apt-get install -y sudo vim gedit locales wget curl git gnupg2 lsb-release net-tools iputils-ping mesa-utils \
+                    openssh-server bash-completion software-properties-common python3-pip ttf-wqy-zenhei && \
+    update-alternatives --install /usr/bin/python python /usr/bin/python3 2 && \
+    pip3 install --upgrade pip &&\
+    locale-gen zh_CN.UTF-8 &&\
+    wget -q https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb &&\
+    apt-get install -yf ./google-chrome-stable_current_amd64.deb &&\
+    rm google-chrome-stable_current_amd64.deb &&\
+    rm -rf /var/lib/apt/lists/* 
+
 # Configure
 RUN mkdir /var/run/dbus && \
   cp /etc/X11/xrdp/xorg.conf /etc/X11 && \
