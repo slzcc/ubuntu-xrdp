@@ -1,5 +1,7 @@
 ## Ubuntu 20.04/18.04/16.04  Multi User Remote Desktop Server
 
+Repo Fork [danielguerra69/ubuntu-xrdp](https://github.com/danielguerra69/ubuntu-xrdp).
+
 Fully implemented Multi User xrdp
 with xorgxrdp and pulseaudio
 on Ubuntu 20.04/18.04
@@ -7,18 +9,19 @@ Copy/Paste and sound is working.
 Users can re-login in the same session.
 Xfce4, Firefox are pre installed.
 
-# Tags
-
-danielguerra/ubuntu-xrdp:18.04  or latest
-danielguerra/ubuntu-xrdp:20.04
 
 ## Usage
+
+Build
+```
+docker build -t slzcc/ubuntu-xrdp:20.04 .
+```
 
 Start the rdp server
 (WARNING: use the --shm-size 1g or firefox/chrome will crash)
 
 ```bash
-docker run -d --name uxrdp --hostname terminalserver --shm-size 1g -p 3389:3389 -p 2222:22 danielguerra/ubuntu-xrdp:20.04
+docker run -d --name uxrdp --hostname terminalserver --shm-size 1g -p 3389:3389 -p 2222:22 slzcc/ubuntu-xrdp:20.04
 ```
 *note if you already use a rdp server on 3389 change -p <my-port>:3389
 	  -p 2222:22 is for ssh access ( ssh -p 2222 ubuntu@<docker-ip> )
@@ -105,7 +108,7 @@ as `args` in your `docker-compose.override.yml` and run `docker-compose build`.
 ## To run with docker-compose
 
 ```bash
-git clone https://github.com/danielguerra69/ubuntu-xrdp.git
+git clone https://github.com/slzcc/ubuntu-xrdp.git
 cd ubuntu-xrdp/
 vi docker-compose.override.yml # if you want to override any default value
 docker-compose up -d
