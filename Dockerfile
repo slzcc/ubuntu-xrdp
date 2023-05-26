@@ -118,7 +118,7 @@ RUN wget https://chromedriver.storage.googleapis.com/109.0.5414.74/chromedriver_
     mv chromedriver /usr/local/bin/ && \
     rm -rf chromedriver_linux64.zip
 
-RUN pip3 install -y requests selenium lxml pytz
+RUN pip3 install requests selenium lxml pytz
 
 # Docker config
 VOLUME ["/etc/ssh","/home"]
