@@ -106,6 +106,20 @@ RUN mkdir /var/run/dbus && \
   rm -rf /etc/ssh/* && \
   rm -rf /etc/xrdp/rsakeys.ini /etc/xrdp/*.pem
 
+# install firefox drive geckodriver
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.31.0/geckodriver-v0.31.0-linux64.tar.gz && \
+    tar zxf geckodriver-v0.31.0-linux64.tar.gz -C /usr/local/bin && \
+    rm -rf geckodriver-v0.31.0-linux64.tar.gz
+
+# install chrome drive geckodriver
+# https://chromedriver.storage.googleapis.com/index.html
+RUN wget https://chromedriver.storage.googleapis.com/109.0.5414.74/chromedriver_linux64.zip && \
+    unzip chromedriver_linux64.zip && \
+    mv chromedriver /usr/local/bin/ && \
+    rm -rf chromedriver_linux64.zip
+
+RUN pip3 install -y requests selenium lxml pytz
+
 # Docker config
 VOLUME ["/etc/ssh","/home"]
 EXPOSE 3389 22 9001
