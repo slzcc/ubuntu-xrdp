@@ -118,7 +118,19 @@ RUN wget https://chromedriver.storage.googleapis.com/109.0.5414.74/chromedriver_
     mv chromedriver /usr/local/bin/ && \
     rm -rf chromedriver_linux64.zip
 
+# install pip package
 RUN pip3 install requests selenium lxml pytz
+
+## Install nomachine
+RUN curl -fSL "https://www.nomachine.com/free/linux/64/deb" -o nomachine.deb &&\
+    dpkg -i nomachine.deb &&\
+    groupmod -g 2000 nx &&\
+    rm nomachine.deb &&\
+    sed -i "s|#EnableClipboard both|EnableClipboard both |g" /usr/NX/etc/server.cfg &&\
+    sed -i '/DefaultDesktopCommand/c\DefaultDesktopCommand "/usr/bin/startxfce4"' /usr/NX/etc/node.cfg
+
+# Initialization environment
+RUN sed -i '27i ubuntu  ALL=(ALL) NOPASSWD:ALL' /etc/sudoers
 
 # Docker config
 VOLUME ["/etc/ssh","/home"]
